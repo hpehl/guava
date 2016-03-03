@@ -21,7 +21,7 @@ import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Ascii;
 import com.google.common.base.Optional;
 import com.google.common.base.Splitter;
-import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.AbstractCollectIterator;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -487,7 +487,7 @@ public abstract class CharSource {
       return new Iterable<String>() {
         @Override
         public Iterator<String> iterator() {
-          return new AbstractIterator<String>() {
+          return new AbstractCollectIterator<String>() {
             Iterator<String> lines = LINE_SPLITTER.split(seq).iterator();
 
             @Override

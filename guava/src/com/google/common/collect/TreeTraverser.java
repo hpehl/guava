@@ -141,7 +141,7 @@ public abstract class TreeTraverser<T> {
     }
   }
 
-  private final class PostOrderIterator extends AbstractIterator<T> {
+  private final class PostOrderIterator extends AbstractCollectIterator<T> {
     private final ArrayDeque<PostOrderNode<T>> stack;
 
     PostOrderIterator(T root) {

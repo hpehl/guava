@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.common.base;
+package com.google.common.collect;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
@@ -27,19 +27,20 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Unit test for {@code AbstractIterator}.
+ * Unit test for {@code AbstractCollectIterator}.
  *
  * @author Kevin Bourrillion
  */
+@SuppressWarnings("serial") // No serialization is used in this test
 @GwtCompatible(emulated = true)
 // TODO(cpovirk): why is this slow (>1m/test) under GWT when fully optimized?
-public class AbstractIteratorTest extends TestCase {
+public class AbstractCollectIteratorTest extends TestCase {
 
   public void testDefaultBehaviorOfNextAndHasNext() {
 
-    // This sample AbstractIterator returns 0 on the first call, 1 on the
+    // This sample AbstractCollectIterator returns 0 on the first call, 1 on the
     // second, then signals that it's reached the end of the data
-    Iterator<Integer> iter = new AbstractIterator<Integer>() {
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
       private int rep;
       @Override public Integer computeNext() {
         switch (rep++) {
@@ -77,8 +78,101 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
+  public void testDefaultBehaviorOfPeek() {
+    /*
+     * This sample AbstractCollectIterator returns 0 on the first call, 1 on the
+     * second, then signals that it's reached the end of the data
+     */
+    AbstractCollectIterator<Integer> iter = new AbstractCollectIterator<Integer>() {
+      private int rep;
+      @Override public Integer computeNext() {
+        switch (rep++) {
+          case 0:
+            return 0;
+          case 1:
+            return 1;
+          case 2:
+            return endOfData();
+          default:
+            fail("Should not have been invoked again");
+            return null;
+        }
+      }
+    };
+
+    assertEquals(0, (int) iter.peek());
+    assertEquals(0, (int) iter.peek());
+    assertTrue(iter.hasNext());
+    assertEquals(0, (int) iter.peek());
+    assertEquals(0, (int) iter.next());
+
+    assertEquals(1, (int) iter.peek());
+    assertEquals(1, (int) iter.next());
+
+    try {
+      iter.peek();
+      fail("peek() should throw NoSuchElementException at end");
+    } catch (NoSuchElementException expected) {
+    }
+
+    try {
+      iter.peek();
+      fail("peek() should continue to throw NoSuchElementException at end");
+    } catch (NoSuchElementException expected) {
+    }
+
+    try {
+      iter.next();
+      fail("next() should throw NoSuchElementException as usual");
+    } catch (NoSuchElementException expected) {
+    }
+
+    try {
+      iter.peek();
+      fail("peek() should still throw NoSuchElementException after next()");
+    } catch (NoSuchElementException expected) {
+    }
+  }
+
+  @GwtIncompatible // weak references
+  public void testFreesNextReference() {
+    Iterator<Object> itr = new AbstractCollectIterator<Object>() {
+      @Override public Object computeNext() {
+        return new Object();
+      }
+    };
+    WeakReference<Object> ref = new WeakReference<Object>(itr.next());
+    GcFinalization.awaitClear(ref);
+  }
+
+  public void testDefaultBehaviorOfPeekForEmptyIteration() {
+
+    AbstractCollectIterator<Integer> empty = new AbstractCollectIterator<Integer>() {
+      private boolean alreadyCalledEndOfData;
+      @Override public Integer computeNext() {
+        if (alreadyCalledEndOfData) {
+          fail("Should not have been invoked again");
+        }
+        alreadyCalledEndOfData = true;
+        return endOfData();
+      }
+    };
+
+    try {
+      empty.peek();
+      fail("peek() should throw NoSuchElementException at end");
+    } catch (NoSuchElementException expected) {
+    }
+
+    try {
+      empty.peek();
+      fail("peek() should continue to throw NoSuchElementException at end");
+    } catch (NoSuchElementException expected) {
+    }
+  }
+
   public void testSneakyThrow() throws Exception {
-    Iterator<Integer> iter = new AbstractIterator<Integer>() {
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
       boolean haveBeenCalled;
       @Override public Integer computeNext() {
         if (haveBeenCalled) {
@@ -101,7 +195,7 @@ public class AbstractIteratorTest extends TestCase {
       }
     }
 
-    // But the second time, AbstractIterator itself throws an ISE
+    // But the second time, AbstractCollectIterator itself throws an ISE
     try {
       iter.hasNext();
       fail("No exception thrown");
@@ -111,7 +205,7 @@ public class AbstractIteratorTest extends TestCase {
 
   public void testException() {
     final SomeUncheckedException exception = new SomeUncheckedException();
-    Iterator<Integer> iter = new AbstractIterator<Integer>() {
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
       @Override public Integer computeNext() {
         throw exception;
       }
@@ -127,14 +221,12 @@ public class AbstractIteratorTest extends TestCase {
   }
 
   public void testExceptionAfterEndOfData() {
-    Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          @Override
-          public Integer computeNext() {
-            endOfData();
-            throw new SomeUncheckedException();
-          }
-        };
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
+      @Override public Integer computeNext() {
+        endOfData();
+        throw new SomeUncheckedException();
+      }
+    };
     try {
       iter.hasNext();
       fail("No exception thrown");
@@ -143,19 +235,16 @@ public class AbstractIteratorTest extends TestCase {
   }
 
   public void testCantRemove() {
-    Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          boolean haveBeenCalled;
-
-          @Override
-          public Integer computeNext() {
-            if (haveBeenCalled) {
-              endOfData();
-            }
-            haveBeenCalled = true;
-            return 0;
-          }
-        };
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
+      boolean haveBeenCalled;
+      @Override public Integer computeNext() {
+        if (haveBeenCalled) {
+          endOfData();
+        }
+        haveBeenCalled = true;
+        return 0;
+      }
+    };
 
     assertEquals(0, (int) iter.next());
 
@@ -166,26 +255,13 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
-  @GwtIncompatible // weak references
-  public void testFreesNextReference() {
-    Iterator<Object> itr = new AbstractIterator<Object>() {
-      @Override public Object computeNext() {
-        return new Object();
+  public void testReentrantHasNext() {
+    Iterator<Integer> iter = new AbstractCollectIterator<Integer>() {
+      @Override protected Integer computeNext() {
+        hasNext();
+        return null;
       }
     };
-    WeakReference<Object> ref = new WeakReference<Object>(itr.next());
-    GcFinalization.awaitClear(ref);
-  }
-
-  public void testReentrantHasNext() {
-    Iterator<Integer> iter =
-        new AbstractIterator<Integer>() {
-          @Override
-          protected Integer computeNext() {
-            boolean unused = hasNext();
-            return null;
-          }
-        };
     try {
       iter.hasNext();
       fail();
@@ -193,8 +269,8 @@ public class AbstractIteratorTest extends TestCase {
     }
   }
 
-  // Technically we should test other reentrant scenarios (4 combinations of
-  // hasNext/next), but we'll cop out for now, knowing that
+  // Technically we should test other reentrant scenarios (9 combinations of
+  // hasNext/next/peek), but we'll cop out for now, knowing that peek() and
   // next() both start by invoking hasNext() anyway.
 
   /**
@@ -202,7 +278,7 @@ public class AbstractIteratorTest extends TestCase {
    */
   private static void sneakyThrow(Throwable t) {
     class SneakyThrower<T extends Throwable> {
-      @SuppressWarnings("unchecked") // intentionally unsafe for test
+      @SuppressWarnings("unchecked") // not really safe, but that's the point
       void throwIt(Throwable t) throws T {
         throw (T) t;
       }

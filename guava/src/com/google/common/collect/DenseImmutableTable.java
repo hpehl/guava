@@ -21,7 +21,6 @@ import com.google.common.collect.ImmutableMap.IteratorBasedImmutableMap;
 import com.google.j2objc.annotations.WeakOuter;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -117,7 +116,7 @@ final class DenseImmutableTable<R, C, V> extends RegularImmutableTable<R, C, V> 
 
     @Override
     UnmodifiableIterator<Entry<K, V>> entryIterator() {
-      return new AbstractIterator<Entry<K, V>>() {
+      return new AbstractCollectIterator<Entry<K, V>>() {
         private int index = -1;
         private final int maxIndex = keyToIndex().size();
 

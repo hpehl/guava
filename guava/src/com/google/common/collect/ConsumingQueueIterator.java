@@ -26,7 +26,7 @@ import java.util.Queue;
  * iterates.
  */
 @GwtCompatible
-class ConsumingQueueIterator<T> extends AbstractIterator<T> {
+class ConsumingQueueIterator<T> extends AbstractCollectIterator<T> {
   private final Queue<T> queue;
 
   ConsumingQueueIterator(T... elements) {

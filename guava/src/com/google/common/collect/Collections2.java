@@ -19,7 +19,6 @@ package com.google.common.collect;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Predicates.and;
-import static com.google.common.base.Predicates.in;
 import static com.google.common.base.Predicates.not;
 import static com.google.common.collect.CollectPreconditions.checkNonnegative;
 import static com.google.common.math.LongMath.binomial;
@@ -486,7 +485,7 @@ public final class Collections2 {
     }
   }
 
-  private static final class OrderedPermutationIterator<E> extends AbstractIterator<List<E>> {
+  private static final class OrderedPermutationIterator<E> extends AbstractCollectIterator<List<E>> {
 
     List<E> nextPermutation;
     final Comparator<? super E> comparator;
@@ -601,7 +600,7 @@ public final class Collections2 {
     }
   }
 
-  private static class PermutationIterator<E> extends AbstractIterator<List<E>> {
+  private static class PermutationIterator<E> extends AbstractCollectIterator<List<E>> {
     final List<E> list;
     final int[] c;
     final int[] o;

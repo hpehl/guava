@@ -514,10 +514,10 @@ public final class ConcurrentHashMultiset<E> extends AbstractMultiset<E> impleme
 
   @Override
   Iterator<Entry<E>> entryIterator() {
-    // AbstractIterator makes this fairly clean, but it doesn't support remove(). To support
-    // remove(), we create an AbstractIterator, and then use ForwardingIterator to delegate to it.
+    // AbstractCollectIterator makes this fairly clean, but it doesn't support remove(). To support
+    // remove(), we create an AbstractCollectIterator, and then use ForwardingIterator to delegate to it.
     final Iterator<Entry<E>> readOnlyIterator =
-        new AbstractIterator<Entry<E>>() {
+        new AbstractCollectIterator<Entry<E>>() {
           private final Iterator<Map.Entry<E, AtomicInteger>> mapEntries =
               countMap.entrySet().iterator();
 

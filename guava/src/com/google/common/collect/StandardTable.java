@@ -502,7 +502,7 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
       }
     }
 
-    private class EntrySetIterator extends AbstractIterator<Entry<R, V>> {
+    private class EntrySetIterator extends AbstractCollectIterator<Entry<R, V>> {
       final Iterator<Entry<R, Map<C, V>>> iterator = backingMap.entrySet().iterator();
 
       @Override
@@ -692,7 +692,7 @@ class StandardTable<R, C, V> extends AbstractTable<R, C, V> implements Serializa
     return new ColumnKeyIterator();
   }
 
-  private class ColumnKeyIterator extends AbstractIterator<C> {
+  private class ColumnKeyIterator extends AbstractCollectIterator<C> {
     // Use the same map type to support TreeMaps with comparators that aren't
     // consistent with equals().
     final Map<C, V> seen = factory.get();

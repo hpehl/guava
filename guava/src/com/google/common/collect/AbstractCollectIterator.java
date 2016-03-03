@@ -16,11 +16,11 @@
 
 package com.google.common.collect;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import com.google.common.annotations.GwtCompatible;
 
 import java.util.NoSuchElementException;
+
+import static com.google.common.base.Preconditions.checkState;
 
 /**
  * This class provides a skeletal implementation of the {@code Iterator}
@@ -40,7 +40,7 @@ import java.util.NoSuchElementException;
  * iterator. This could be implemented as: <pre>   {@code
  *
  *   public static Iterator<String> skipNulls(final Iterator<String> in) {
- *     return new AbstractIterator<String>() {
+ *     return new AbstractCollectIterator<String>() {
  *       protected String computeNext() {
  *         while (in.hasNext()) {
  *           String s = in.next();
@@ -59,13 +59,13 @@ import java.util.NoSuchElementException;
  * @since 2.0
  */
 // When making changes to this class, please also update the copy at
-// com.google.common.base.AbstractIterator
+// com.google.common.base.AbstractCollectIterator
 @GwtCompatible
-public abstract class AbstractIterator<T> extends UnmodifiableIterator<T> {
+public abstract class AbstractCollectIterator<T> extends UnmodifiableIterator<T> {
   private State state = State.NOT_READY;
 
   /** Constructor for use by subclasses. */
-  protected AbstractIterator() {}
+  protected AbstractCollectIterator() {}
 
   private enum State {
     /** We have computed the next element and haven't returned it yet. */
@@ -163,7 +163,7 @@ public abstract class AbstractIterator<T> extends UnmodifiableIterator<T> {
    * Returns the next element in the iteration without advancing the iteration,
    * according to the contract of {@link PeekingIterator#peek()}.
    *
-   * <p>Implementations of {@code AbstractIterator} that wish to expose this
+   * <p>Implementations of {@code AbstractCollectIterator} that wish to expose this
    * functionality should implement {@code PeekingIterator}.
    */
   public final T peek() {

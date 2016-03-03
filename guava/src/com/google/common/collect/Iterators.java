@@ -619,7 +619,7 @@ public final class Iterators {
       final Iterator<T> unfiltered, final Predicate<? super T> retainIfTrue) {
     checkNotNull(unfiltered);
     checkNotNull(retainIfTrue);
-    return new AbstractIterator<T>() {
+    return new AbstractCollectIterator<T>() {
       @Override
       protected T computeNext() {
         while (unfiltered.hasNext()) {

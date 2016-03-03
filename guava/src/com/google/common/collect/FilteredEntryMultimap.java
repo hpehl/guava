@@ -252,7 +252,7 @@ class FilteredEntryMultimap<K, V> extends AbstractMultimap<K, V> implements Filt
 
         @Override
         public Iterator<Entry<K, Collection<V>>> iterator() {
-          return new AbstractIterator<Entry<K, Collection<V>>>() {
+          return new AbstractCollectIterator<Entry<K, Collection<V>>>() {
             final Iterator<Entry<K, Collection<V>>> backingIterator =
                 unfiltered.asMap().entrySet().iterator();
 

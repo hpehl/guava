@@ -503,7 +503,7 @@ public final class Splitter {
     Iterator<String> iterator(Splitter splitter, CharSequence toSplit);
   }
 
-  private abstract static class SplittingIterator extends AbstractIterator<String> {
+  private abstract static class SplittingIterator extends AbstractBaseIterator<String> {
     final CharSequence toSplit;
     final CharMatcher trimmer;
     final boolean omitEmptyStrings;

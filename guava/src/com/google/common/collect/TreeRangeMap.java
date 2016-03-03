@@ -444,7 +444,7 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
                   .descendingMap()
                   .values()
                   .iterator();
-          return new AbstractIterator<Entry<Range<K>, V>>() {
+          return new AbstractCollectIterator<Entry<Range<K>, V>>() {
 
             @Override
             protected Entry<Range<K>, V> computeNext() {
@@ -605,7 +605,7 @@ public final class TreeRangeMap<K extends Comparable, V> implements RangeMap<K, 
                 entriesByLowerBound.floorKey(subRange.lowerBound), subRange.lowerBound);
         final Iterator<RangeMapEntry<K, V>> backingItr =
             entriesByLowerBound.tailMap(cutToStart, true).values().iterator();
-        return new AbstractIterator<Entry<Range<K>, V>>() {
+        return new AbstractCollectIterator<Entry<Range<K>, V>>() {
 
           @Override
           protected Entry<Range<K>, V> computeNext() {

@@ -751,7 +751,7 @@ public final class Sets {
       public Iterator<E> iterator() {
         final Iterator<? extends E> itr1 = set1.iterator();
         final Iterator<? extends E> itr2 = set2.iterator();
-        return new AbstractIterator<E>() {
+        return new AbstractCollectIterator<E>() {
           @Override
           public E computeNext() {
             while (itr1.hasNext()) {

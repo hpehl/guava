@@ -133,7 +133,7 @@ public abstract class TreeTraverser<T> {
     }
   }
 
-  private final class PostOrderIterator extends AbstractIterator<T> {
+  private final class PostOrderIterator extends AbstractCollectIterator<T> {
     private final LinkedList<PostOrderNode<T>> stack;
 
     PostOrderIterator(T root) {

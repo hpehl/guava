@@ -290,7 +290,7 @@ public abstract class Optional<T> implements Serializable {
     return new Iterable<T>() {
       @Override
       public Iterator<T> iterator() {
-        return new AbstractIterator<T>() {
+        return new AbstractBaseIterator<T>() {
           private final Iterator<? extends Optional<? extends T>> iterator =
               checkNotNull(optionals.iterator());
 

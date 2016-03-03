@@ -370,7 +370,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
               .iterator();
         }
       }
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {
           if (!backingItr.hasNext()) {
@@ -403,7 +403,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
           && upperBoundWindow.upperBound.isLessThan(backingItr.peek().upperBound)) {
         backingItr.next();
       }
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {
           if (!backingItr.hasNext()) {
@@ -522,7 +522,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       } else {
         return Iterators.emptyIterator();
       }
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         Cut<C> nextComplementRangeLowerBound = firstComplementRangeLowerBound;
 
         @Override
@@ -582,7 +582,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       }
       final Cut<C> firstComplementRangeUpperBound =
           MoreObjects.firstNonNull(cut, Cut.<C>aboveAll());
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         Cut<C> nextComplementRangeUpperBound = firstComplementRangeUpperBound;
 
         @Override
@@ -785,7 +785,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
       final Cut<Cut<C>> upperBoundOnLowerBounds =
           Ordering.natural()
               .min(lowerBoundWindow.upperBound, Cut.belowValue(restriction.upperBound));
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {
           if (!completeRangeItr.hasNext()) {
@@ -818,7 +818,7 @@ public class TreeRangeSet<C extends Comparable<?>> extends AbstractRangeSet<C>
               .descendingMap()
               .values()
               .iterator();
-      return new AbstractIterator<Entry<Cut<C>, Range<C>>>() {
+      return new AbstractCollectIterator<Entry<Cut<C>, Range<C>>>() {
         @Override
         protected Entry<Cut<C>, Range<C>> computeNext() {
           if (!completeRangeItr.hasNext()) {

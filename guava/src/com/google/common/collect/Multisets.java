@@ -423,7 +423,7 @@ public final class Multisets {
         final Iterator<? extends Entry<? extends E>> iterator1 = multiset1.entrySet().iterator();
         final Iterator<? extends Entry<? extends E>> iterator2 = multiset2.entrySet().iterator();
         // TODO(lowasser): consider making the entries live views
-        return new AbstractIterator<Entry<E>>() {
+        return new AbstractCollectIterator<Entry<E>>() {
           @Override
           protected Entry<E> computeNext() {
             if (iterator1.hasNext()) {
@@ -486,7 +486,7 @@ public final class Multisets {
       Iterator<Entry<E>> entryIterator() {
         final Iterator<Entry<E>> iterator1 = multiset1.entrySet().iterator();
         // TODO(lowasser): consider making the entries live views
-        return new AbstractIterator<Entry<E>>() {
+        return new AbstractCollectIterator<Entry<E>>() {
           @Override
           protected Entry<E> computeNext() {
             while (iterator1.hasNext()) {
@@ -561,7 +561,7 @@ public final class Multisets {
       Iterator<Entry<E>> entryIterator() {
         final Iterator<? extends Entry<? extends E>> iterator1 = multiset1.entrySet().iterator();
         final Iterator<? extends Entry<? extends E>> iterator2 = multiset2.entrySet().iterator();
-        return new AbstractIterator<Entry<E>>() {
+        return new AbstractCollectIterator<Entry<E>>() {
           @Override
           protected Entry<E> computeNext() {
             if (iterator1.hasNext()) {
@@ -621,7 +621,7 @@ public final class Multisets {
       @Override
       Iterator<Entry<E>> entryIterator() {
         final Iterator<Entry<E>> iterator1 = multiset1.entrySet().iterator();
-        return new AbstractIterator<Entry<E>>() {
+        return new AbstractCollectIterator<Entry<E>>() {
           @Override
           protected Entry<E> computeNext() {
             while (iterator1.hasNext()) {

@@ -59,7 +59,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     return new FluentIterable<T>() {
       @Override
       public Iterator<T> iterator() {
-        return new AbstractIterator<T>() {
+        return new AbstractCollectIterator<T>() {
           boolean doneLeft;
           boolean doneRight;
 
@@ -175,7 +175,7 @@ public abstract class BinaryTreeTraverser<T> extends TreeTraverser<T> {
     };
   }
 
-  private final class InOrderIterator extends AbstractIterator<T> {
+  private final class InOrderIterator extends AbstractCollectIterator<T> {
     private final Deque<T> stack;
     private final BitSet hasExpandedLeft;
 

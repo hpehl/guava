@@ -19,32 +19,32 @@ public class AbstractIteratorTest_gwt extends com.google.gwt.junit.client.GWTTes
   return "com.google.common.base.testModule";
 }
 public void testCantRemove() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testCantRemove();
 }
 
 public void testDefaultBehaviorOfNextAndHasNext() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testDefaultBehaviorOfNextAndHasNext();
 }
 
 public void testException() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testException();
 }
 
 public void testExceptionAfterEndOfData() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testExceptionAfterEndOfData();
 }
 
 public void testReentrantHasNext() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testReentrantHasNext();
 }
 
 public void testSneakyThrow() throws Exception {
-  com.google.common.base.AbstractIteratorTest testCase = new com.google.common.base.AbstractIteratorTest();
+  AbstractBaseIteratorTest testCase = new AbstractBaseIteratorTest();
   testCase.testSneakyThrow();
 }
 }

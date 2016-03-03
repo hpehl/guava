@@ -19,42 +19,42 @@ public class AbstractIteratorTest_gwt extends com.google.gwt.junit.client.GWTTes
   return "com.google.common.collect.testModule";
 }
 public void testCantRemove() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testCantRemove();
 }
 
 public void testDefaultBehaviorOfNextAndHasNext() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testDefaultBehaviorOfNextAndHasNext();
 }
 
 public void testDefaultBehaviorOfPeek() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testDefaultBehaviorOfPeek();
 }
 
 public void testDefaultBehaviorOfPeekForEmptyIteration() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testDefaultBehaviorOfPeekForEmptyIteration();
 }
 
 public void testException() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testException();
 }
 
 public void testExceptionAfterEndOfData() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testExceptionAfterEndOfData();
 }
 
 public void testReentrantHasNext() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testReentrantHasNext();
 }
 
 public void testSneakyThrow() throws Exception {
-  com.google.common.collect.AbstractIteratorTest testCase = new com.google.common.collect.AbstractIteratorTest();
+  AbstractCollectIteratorTest testCase = new AbstractCollectIteratorTest();
   testCase.testSneakyThrow();
 }
 }

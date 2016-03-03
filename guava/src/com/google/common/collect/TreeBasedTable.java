@@ -333,7 +333,7 @@ public class TreeBasedTable<R, C, V> extends StandardRowSortedTable<R, C, V> {
                 }),
             comparator);
 
-    return new AbstractIterator<C>() {
+    return new AbstractCollectIterator<C>() {
       C lastValue;
 
       @Override
